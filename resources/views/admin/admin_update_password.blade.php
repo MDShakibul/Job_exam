@@ -24,9 +24,10 @@
 
     <form action="{{URL::to('/admin_update_password/'.Session::get('admin_id') ) }}" method="post">
         @csrf
+
         <h2>Change Password</h2>
 
-        <label>Old Password</label>
+        <label>Old Password</label> 
         <input type="password" name="admin_old_password" placeholder="Old Password" required />
         <br />
 

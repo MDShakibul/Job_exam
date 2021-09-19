@@ -69,6 +69,16 @@
                             </nav>
                         </div>
 
+                        <a class="nav-link" href="{{URL::to('/position_page')}}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Add Position
+                        </a>
+
+                        <a class="nav-link" href="{{URL::to('/employee_page')}}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Add Employee
+                        </a>
+
 
                         <a class="nav-link" href="{{URL::to('/all_users')}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>

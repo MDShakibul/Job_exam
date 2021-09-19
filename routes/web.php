@@ -8,7 +8,9 @@ use App\Http\Controllers\AllUsertController;
 use App\Http\Controllers\ApplicationTypeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FormAcceptController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ShowCommentController;
 use App\Http\Controllers\SigninController;
 use App\Http\Controllers\SignupController;
@@ -119,3 +121,14 @@ Route::post('/checkout', [CheckoutController::class, 'afterpayment'])->name('che
 
 //workflow
 Route::get('/workflow_page', [WorkFlowController::class, 'workflow_page']);
+
+
+//position 
+Route::get('/position_page', [PositionController::class, 'position_page']);
+Route::post('/position_add', [PositionController::class, 'position_add']);
+
+
+
+//employee
+Route::get('/employee_page', [EmployeeController::class, 'employee_page']);
+Route::post('/employee_add', [EmployeeController::class, 'employee_add']);

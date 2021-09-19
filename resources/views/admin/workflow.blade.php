@@ -1,26 +1,32 @@
 @extends('admin.admin_layout')
 @section('title', 'All Application')
 @section('admin_content')
-<table>
-    <thead>
-        <tr>
-            <th>
-                Positon
-            </th>
-            <th>
-                Name
-            </th>
+<table id="dynamicTable">
+    <tr>
+        <th>
+            Positon
+        </th>
+        <th>
+            Name
+        </th>
 
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><input type="text" class="input" name="position" placeholder="Enter position name" /></td>
-            <td><input type="text" class="input" name="name[]" placeholder="Enter name" /></td>
-            <td><button type="button" class="btn btn-success" id="add_btn"><i class="glyphicon glyphicon-plus "></i>ADD</button></td>
-        </tr>
-    </tbody>
+    </tr>
+    <tr>
+        <td><select name="position_type" class="positionname" id="posi_id">
+                @foreach($posi_list as $list)
+                <option value="{{ $list->id }}"> {{ $list-> position_type  }}</option>
+                @endforeach
+
+            </select></td>
+        <td><input type="text" class="input" name="name[]" placeholder="Enter name" /></td>
+        <td><button type="button" class="btn btn-success" id="add_btn"><i class="glyphicon glyphicon-plus "></i>ADD</button></td>
+    </tr>
 </table><br>
+
+
+
+
+
 
 
 @endsection
@@ -37,7 +43,7 @@
             html += '<td><button type="button" class="btn btn-danger" id="remove"><i class="glyphicon glyphicon-remove"></i>Delete</button></td>';
             html += '</tr>';
 
-            $('tbody').append(html);
+            $('#dynamicTable').append(html);
 
         });
 
