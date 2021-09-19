@@ -3,15 +3,15 @@
 @section('content')
 
 
-
-
-
-@if(Session::has('message'))
-<h3 class="alert alert-success">{{ Session::get('message') }}</h3>
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
 @endif
-
-
-
 
 
 <form action="{{URL::to('/user_details')}}" method="post" enctype="multipart/form-data">
@@ -30,43 +30,62 @@
         </select><br /><br />
     </div>
     <label>Application Price:</label>
-    <input type="text" class="app_price" name="application_price" required readonly />
+    <input type="text" class="app_price" name="application_price" readonly />
 
     <!-- <label>Application Number:</label> -->
+    <!-- <label>Aoolication Random Number</label> -->
     <input type="hidden" class="input" name="application_number" /><br /><br />
-
+    <!-- <label>User Id:</label> -->
     <input type="hidden" class="input" name="user_id" value={{Session::get('user_id')}} />
     <label>Father Name:</label>
-    <input type="text" class="input" name="father_name" placeholder="Father Name" required /><br /><br />
+    <input type="text" class="input" name="father_name" placeholder="Father Name" /><br /><br />
 
     <label>Mother Name:</label>
-    <input type="text" class="input" name="mother_name" placeholder="Mother Name" required /><br /><br />
+    <input type="text" class="input" name="mother_name" placeholder="Mother Name" /><br /><br />
 
     <label>The Amount of Land:</label>
-    <input type=" text" class="input" name="amount_land" placeholder="The Amount of Land" required /><br /><br />
+    <input type=" text" class="input" name="amount_land" placeholder="The Amount of Land" /><br /><br />
 
     <label>NID Number:</label>
-    <input type="text" class="input" name="nid_number" placeholder="NID Number" required /><br /><br />
+    <input type="text" class="input" name="nid_number" placeholder="NID Number" /><br /><br />
 
-    <label>Select Land Image:</label>
-    <input class="image" name="image" type="file" accept='image/jpeg , image/jpg, image/gif, image/png' required /><br /><br />
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Land Image
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> <input class="image" name="image[]" type="file" accept='image/jpeg , image/jpg, image/gif, image/png' /></td>
+                <td><button type="button" class="btn btn-success" id="add_btn"><i class="glyphicon glyphicon-plus "></i>ADD</button></td>
+            </tr>
+        </tbody>
+    </table><br>
 
     <label>Select Land Documnet(Only PDF):</label>
-    <input class="pdf" name="pdf" type="file" accept="application/pdf" required /><br /><br />
+    <input class="pdf" name="pdf" type="file" accept="application/pdf" /><br /><br />
 
     <label>Any Other Files:</label>
     <input class="pdf" name="file[]" type="file" multiple /><br /><br />
 
     <label>Mobile Number:</label>
-    <input type="text" class="input" name="mobile_number" placeholder="Mobile Number" pattern="[0-1]{2}[3-9]{1}[0-9]{8}" required /><br /><br />
+    <input type="text" class="input" name="mobile_number" placeholder="Mobile Number" pattern="[0-1]{2}[3-9]{1}[0-9]{8}" /><br /><br />
 
     <label>Description:</label>
     <textarea class=" discription" name="description" rows="4" cols="50">
         </textarea>
 
 
-    <button type="submit">Save</button>
+    <button type="submit">Save with Payment</button>
 </form>
+
+
 
 
 
@@ -101,6 +120,26 @@
 
         });
 
+    });
+
+    $(document).ready(function() {
+        $('#add_btn').on('click', function() {
+            /* alert('hi'); */
+            var html = '';
+            html += '<tr>';
+            html += '<td> <input class="image" name="image[]" type="file" accept="image/jpeg , image/jpg, image/gif, image/png"/></td>';
+            html += '<td><button type="button" class="btn btn-danger" id="remove"><i class="glyphicon glyphicon-remove"></i>Delete</button></td>';
+            html += '</tr>';
+
+            $('tbody').append(html);
+
+        });
+
+    });
+
+    $(document).on('click', '#remove', function() {
+
+        $(this).closest('tr').remove();
     });
 </script>
 @endsection

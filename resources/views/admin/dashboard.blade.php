@@ -41,7 +41,7 @@
             <td>{{$list->mobile_number}}</td>
             <td>
                 @if ($list->is_verified == '0')
-                <span>Pending.....</span>
+                <span>Processing.....</span>
                 @elseif($list->is_verified == '1')
                 <span>Success.....</span>
                 @else

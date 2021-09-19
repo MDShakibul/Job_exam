@@ -16,6 +16,8 @@
 
 
 
+
+
 </head>
 
 
@@ -33,7 +35,8 @@
                         <ul class="nav navbar-nav">
                             <li><a href="{{URL::to('/form')}}"><i class="fa fa-wpforms"></i> Form</a></li>
                             <li><a href="{{URL::to('/view_profile/'.Session::get('user_id') )}}"><i class="fa fa-eye"></i> View</a></li>
-                            <li><a href="{{URL::to('/update_profile' )}}"><i class="fa fa-cog"></i> Update Profile</a></li>
+                            <li><a href="{{URL::to('/checkout')}}"><i class="fa fa-shopping-cart"></i> Check Out</a></li>
+                            <li><a href="{{URL::to('/update_profile')}}"><i class="fa fa-cog"></i> Update Profile</a></li>
                             <li><a href="{{URL::to('/user_logout')}}"><i class="fa fa-lock"></i> Logout</a></li>
                         </ul>
 

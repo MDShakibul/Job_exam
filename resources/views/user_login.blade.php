@@ -19,11 +19,21 @@
 <body>
 
 
-	@foreach (['danger', 'warning', 'success', 'info'] as $msg)
+	<!-- @foreach (['danger', 'warning', 'success', 'info'] as $msg)
 	@if(Session::has('alert-' . $msg))
 	<p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
 	@endif
-	@endforeach
+	@endforeach -->
+
+	@if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
 	<section id="form">
 		<div class="container">
@@ -31,10 +41,10 @@
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form">
 						<h2>Login to your account</h2>
-						<form method="POST" action="{{url('/login')}}">
+						<form method="POST" action="{{url('/Application/Form')}}">
 							@csrf
-							<input type="email" placeholder="Email" name="email" required="" />
-							<input type="password" placeholder="Passoward" name="password" required="" />
+							<input type="email" placeholder="Email" name="email" />
+							<input type="password" placeholder="Passoward" name="password" />
 
 							<button type="submit" class="btn btn-default">Login</button>
 						</form>

@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminUpdateController;
 use App\Http\Controllers\AllUsertController;
 use App\Http\Controllers\ApplicationTypeController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FormAcceptController;
 use App\Http\Controllers\ShowCommentController;
 use App\Http\Controllers\SigninController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\SignupController;
 use App\Http\Controllers\UpdateProfileController;
 use App\Http\Controllers\UserCommentController;
 use App\Http\Controllers\UserDetailsController;
+use App\Http\Controllers\WorkFlowController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,13 +39,13 @@ Route::get('/', [SigninController::class, 'page']);
 Auth::routes();
 
 //Route::post('/login-register', [RegisterController::class, 'register'])->name('custom_register');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Register controller
 Route::get('/verify', [RegisterController::class, 'verifyUser'])->name('verify.user');
 
 //SignInController
-Route::post('/login', [SigninController::class, 'login']);
+Route::post('/Application/Form', [SigninController::class, 'login']); //7user login
 
 //SignupController
 Route::get('/user_logout', [SignupController::class, 'user_logout']);
@@ -53,7 +55,7 @@ Route::get('/update_profile', [UpdateProfileController::class, 'updateprofile'])
 Route::post('/update_password', [UpdateProfileController::class, 'update_password']);
 
 //userDetailsController
-Route::get('/form', [UserDetailsController::class, 'form']);
+Route::get('/form', [UserDetailsController::class, 'form']); //method changed here
 Route::post('/user_details', [UserDetailsController::class, 'user_details']);
 Route::get('/view_profile/{user_id}', [UserDetailsController::class, 'view_profile']);
 Route::get('/application_price', [UserDetailsController::class, 'findPrice']);
@@ -107,3 +109,13 @@ Route::get('/show_comment/{id}', [ShowCommentController::class, 'show_comment'])
 Route::get('/pending/{id}', [FormAcceptController::class, 'pending']);
 Route::get('/success/{id}', [FormAcceptController::class, 'success']);
 Route::get('/reject/{id}', [FormAcceptController::class, 'reject']);
+
+//payment getway
+/* Route::get('checkout','CheckoutController@checkout');
+Route::get('checkout','CheckoutController@checkout');
+Route::post('checkout','CheckoutController@afterpayment')->name('checkout.credit-card'); */
+Route::get('/checkout', [CheckoutController::class, 'checkout']);
+Route::post('/checkout', [CheckoutController::class, 'afterpayment'])->name('checkout.credit-card');
+
+//workflow
+Route::get('/workflow_page', [WorkFlowController::class, 'workflow_page']);

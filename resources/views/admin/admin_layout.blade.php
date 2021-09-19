@@ -74,6 +74,11 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Approval
                         </a>
+
+                        <a class="nav-link" href="{{URL::to('/workflow_page')}}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Work Flow
+                        </a>
                     </div>
                 </div>
 

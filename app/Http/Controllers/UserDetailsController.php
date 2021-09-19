@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+use Stripe\Stripe;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserDetailsController extends Controller
@@ -15,13 +17,12 @@ class UserDetailsController extends Controller
         $app_list = DB::table('application_type')->get();
 
         return view('user_index', compact('app_list'));
-        //return view('user_index');
     }
 
     public function user_details(Request $request)
     {
 
-        $request->validate([
+        $validate = Validator::make($request->all(), [
             'application_type' => ['required'],
             'application_price' => ['required'],
             'father_name' => ['required'],
@@ -29,9 +30,10 @@ class UserDetailsController extends Controller
             'amount_land' => ['required'],
             'nid_number' => ['required'],
             'mobile_number' => ['required', 'max:11'],
-            'image' => ['required', 'mimes:jpeg,png,jpg'],
+            'image.*' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'image' => ['required'],
             'pdf' => ['required', 'mimes:pdf']
-        ]);
+        ])->validate();
 
         $data = array();
         $data['user_id'] = $request->user_id;
@@ -45,19 +47,23 @@ class UserDetailsController extends Controller
         $data['mobile_number'] = $request->mobile_number;
         $data['description'] = $request->description;
 
+        $count = intval(count((array)$request->file('image')));
 
-        $image = $request->file('image');
-        if ($image) {
-            $image_name = hexdec(uniqid());
-            $ext = strtolower($image->getClientOriginalExtension());
-            $image_full_name = $image_name . '.' . $ext;
+        $images = array();
+        for ($i = 0; $i < $count; $i++) {
+            $image = $request->file('image');
             $upload_path = 'image/';
+            $image_name = hexdec(uniqid());
+
+            $ext = strtolower($image[$i]->getClientOriginalExtension());
+            $image_full_name = $image_name . '.' . $ext;
+
             $image_url = $upload_path . $image_full_name;
-            $success_img = $image->move($upload_path, $image_full_name);
+            $success_img = $image[$i]->move($upload_path, $image_full_name);
+            array_push($images, $image_url);
         }
-        $data['image'] = $image_url;
 
-
+        $data['image'] = implode(",", $images);
 
         $document = $request->file('pdf');
         if ($document) {
@@ -68,10 +74,11 @@ class UserDetailsController extends Controller
             $document_url = $upload_path . $document_full_name;
             $success_pdf = $document->move($upload_path, $document_full_name);
         }
+
         $data['pdf'] = $document_url;
 
 
-        $multi = array();;
+        $multi = array();
         if ($request->hasFile('file')) {
             foreach ($request->file as $file) {
                 $file_doc = hexdec(uniqid());
@@ -80,23 +87,53 @@ class UserDetailsController extends Controller
                 $upload_path = 'file/';
                 $file_url = $upload_path . $file_full_name;
                 $file->move($upload_path, $file_full_name);
-                //$data['file'] = $file_url;
                 array_push($multi, $file_url);
-                // print_r($file[]); */
             }
         }
-
 
         $data['file'] = implode(",", $multi);
 
 
         if (isset($success_img) && isset($success_pdf)) {
             DB::table('user_details')->insert($data);
-            return Redirect::to('/form')->with('message', 'You Fill Up The Form Successfully');
+            $price = $data['application_price'];
+
+
+           /*  $application_name = DB::table('application_type')
+                ->join('user_details', 'user_details.application_type', 'application_type.id')
+                ->select('application_type.application_type')
+                ->where()
+                ->get();
+            dd($application_name); */
+
+
+
+            Stripe::setApiKey('sk_test_51JauHJBLF5GQ9vxakUzFNGZ4iRjC76hTH8yh6Q9Midfp4Y4oDhcTeT67wDy1WZmnXonDOV7vpzqzGoQy1ubIwJI600fWF3i7Bg');
+
+            $amount = $price;
+            $amount *= 100;
+            $amount = (int) $amount;
+
+            $payment_intent = \Stripe\PaymentIntent::create([
+                'description' => 'Stripe Test Payment',
+                'amount' => $amount,
+                'currency' => 'BDT',
+                'description' => 'Payment From MySite',
+                'payment_method_types' => ['card'],
+            ]);
+            $intent = $payment_intent->client_secret;
+
+            return view('checkout.credit-card', compact(['intent', 'price']));
         }
 
-        return Redirect::to('/update_profile')->with('message', 'You Did Something Wrong. Please Check Again');
+        return Redirect::to('/form')->with('message', 'You Did Something Wrong. Please Check Again');
     }
+
+
+
+
+
+
 
 
     public function view_profile($user_id)
@@ -168,6 +205,9 @@ class UserDetailsController extends Controller
             $document_url = $upload_path . $document_full_name;
             $success_pdf = $document->move($upload_path, $document_full_name);
         }
+
+        // dd($document_url);
+
         $data['pdf'] = $document_url;
 
 
@@ -188,7 +228,6 @@ class UserDetailsController extends Controller
 
 
         $data['file'] = implode(",", $multi);
-
 
         if (isset($success_img) && isset($success_pdf)) {
             DB::table('user_details')->where('id', $id)->update($data);

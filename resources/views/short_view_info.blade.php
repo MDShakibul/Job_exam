@@ -46,7 +46,7 @@
 
       <td>
         @if ($list->is_verified == '0')
-        <span>Admin has not yet accepted the form. Please wait</span>
+        <span>Admin Checked Your Details. Please wait</span>
         @elseif($list->is_verified == '1')
         <span>Admin Accepted the form</span>
         @else
