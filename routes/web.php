@@ -132,3 +132,4 @@ Route::post('/position_add', [PositionController::class, 'position_add']);
 //employee
 Route::get('/employee_page', [EmployeeController::class, 'employee_page']);
 Route::post('/employee_add', [EmployeeController::class, 'employee_add']);
+Route::get('/getemployee/{id}', [EmployeeController::class, 'getemployee']);

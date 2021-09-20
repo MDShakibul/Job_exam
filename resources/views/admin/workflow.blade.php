@@ -12,14 +12,17 @@
 
     </tr>
     <tr>
-        <td><select name="position_type" class="positionname" id="posi_id">
+        <td><select name="position_type" class="positionname" id="positionname">
                 @foreach($posi_list as $list)
-                <option value="{{ $list->id }}"> {{ $list-> position_type  }}</option>
+                <option value=" {{ $list->id }}"> {{ $list-> position_type  }}</option>
                 @endforeach
-
             </select></td>
-        <td><input type="text" class="input" name="name[]" placeholder="Enter name" /></td>
-        <td><button type="button" class="btn btn-success" id="add_btn"><i class="glyphicon glyphicon-plus "></i>ADD</button></td>
+
+        <td><select id="name" class="name" name="name[]" multiple="multiple" style="width: 500px; ">
+                <option></option>
+            </select></td>
+
+        <td><button type="button" class="btn btn-success" id="add_btn"><i class="glyphicon glyphicon-plus "></i>ADD</button><br></td>
     </tr>
 </table><br>
 
@@ -33,25 +36,96 @@
 @section('script')
 
 <script type="text/javascript">
+    var id = 0;
     $(document).ready(function() {
         $('#add_btn').on('click', function() {
-            /* alert('hi'); */
-            var html = '';
-            html += '<tr>';
-            html += '<td> <input type="text" class="input" name="position" placeholder="Enter position name"</td>';
-            html += '<td> <input type="text" class="input" name="name[]" placeholder="Enter name" /></td>';
-            html += '<td><button type="button" class="btn btn-danger" id="remove"><i class="glyphicon glyphicon-remove"></i>Delete</button></td>';
-            html += '</tr>';
+            id++;
+            var html = '<tr>' +
+                '<td><select name="position_type" class="positionname" id="positionname' + id + '">' +
+                '@foreach($posi_list as $list)' +
+                '<option value=" {{ $list->id }}"> {{ $list-> position_type  }}</option>' +
+                '@endforeach' +
+                '</select></td>' +
+                '<td><select id="name' + id + '" class="name" name="name[]" multiple="multiple" style="width: 500px;">' +
+                '<option></option>' +
+                '</select></td>' +
+                '<td>' +
+                '<td><button type="button" class="btn btn-danger" id="remove"><i class="glyphicon glyphicon-plus "></i>Delete</button></td>' +
+                '</tr>'
 
             $('#dynamicTable').append(html);
+
+
+            $('#positionname' + id).select2();
+            $('#name' + id).select2();
+
+            //calling ajax after add_btn click function
+            /* $('.positionname').change(function() {
+                var id = $('.positionname').val();
+                alert(id);
+                $('.name').html('');
+                $.ajax({
+                    type: 'get',
+                    url: '{{ url("/getemployee")}}' + '/' + id,
+                    data: {
+                        id: id
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        $.each(data, function(key, employee) {
+                            $('.name').append(' <option value="' + employee.id + '">' + employee.employee_name + '</option>');
+                        });
+                    }
+                });
+            }); */
+            //calling ajax after add_btn click function
 
         });
 
     });
 
+
+
+    $(document).ready(function() {
+        $('.positionname').change(function() {
+            var id = $('.positionname').val();
+            alert(id);
+            $('.name').html('');
+            $.ajax({
+                type: 'get',
+                url: '{{ url("/getemployee")}}' + '/' + id,
+                data: {
+                    id: id
+                },
+                dataType: "json",
+                success: function(data) {
+                    $.each(data, function(key, employee) {
+                        $('.name').append(' <option value="' + employee.id + '">' + employee.employee_name + '</option>');
+                    });
+                }
+            });
+        });
+    });
+
+    $(document).ready(() => {
+        $("#positionname")
+    })
+
+
+
+
     $(document).on('click', '#remove', function() {
 
         $(this).closest('tr').remove();
+    });
+    $(document).ready(function() {
+        $('.name').select2();
+    });
+
+
+
+    $(document).ready(function() {
+        $('.positionname').select2();
     });
 </script>
 
