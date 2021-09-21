@@ -46,9 +46,6 @@ $stripe_key = 'pk_test_51JauHJBLF5GQ9vxaHJVXzmEMZsqkuBITUuhyx9pXZZyuLezyDEI9WIUi
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-    // Custom styling can be passed to options when creating an Element.
-    // (Note that this demo uses a wider set of styles than the guide below.)
-
     var style = {
         base: {
             color: '#32325d',
