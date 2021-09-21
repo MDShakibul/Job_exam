@@ -9,7 +9,9 @@ $stripe_key = 'pk_test_51JauHJBLF5GQ9vxaHJVXzmEMZsqkuBITUuhyx9pXZZyuLezyDEI9WIUi
         <div class="col-md-12">
             <div class="">
 
-                <p>You will be charged {{ $price }}</p>
+                <strong>
+                    <p style="font-size: 30px;">You will be charged {{ $price }}</p>
+                </strong>
             </div>
             <div class="card">
                 <form action="{{route('checkout.credit-card')}}" method="post" id="payment-form">

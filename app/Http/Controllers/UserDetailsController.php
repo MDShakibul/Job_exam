@@ -98,13 +98,17 @@ class UserDetailsController extends Controller
             DB::table('user_details')->insert($data);
             $price = $data['application_price'];
 
+            /* $res = DB::table('position')
+            ->join('employee', 'position.id', '=', 'employee.position_type')
+            ->where('position.id', $id)
+            ->get(); */
 
-           /*  $application_name = DB::table('application_type')
-                ->join('user_details', 'user_details.application_type', 'application_type.id')
+            /* $application_name = DB::table('application_type')
+                ->join('user_details', 'user_details.application_type', '=', 'application_type.id')
                 ->select('application_type.application_type')
-                ->where()
-                ->get();
-            dd($application_name); */
+                ->where('user_details.application_type', $request->application_type)
+                ->get(); */
+            // dd($application_name);
 
 
 

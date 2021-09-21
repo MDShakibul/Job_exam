@@ -59,27 +59,6 @@
             $('#positionname' + id).select2();
             $('#name' + id).select2();
 
-            //calling ajax after add_btn click function
-            /* $('.positionname').change(function() {
-                var id = $('.positionname').val();
-                alert(id);
-                $('.name').html('');
-                $.ajax({
-                    type: 'get',
-                    url: '{{ url("/getemployee")}}' + '/' + id,
-                    data: {
-                        id: id
-                    },
-                    dataType: "json",
-                    success: function(data) {
-                        $.each(data, function(key, employee) {
-                            $('.name').append(' <option value="' + employee.id + '">' + employee.employee_name + '</option>');
-                        });
-                    }
-                });
-            }); */
-            //calling ajax after add_btn click function
-
         });
 
     });
@@ -89,7 +68,6 @@
     $(document).ready(function() {
         $('.positionname').change(function() {
             var id = $('.positionname').val();
-            alert(id);
             $('.name').html('');
             $.ajax({
                 type: 'get',
@@ -107,9 +85,11 @@
         });
     });
 
+
+
     $(document).ready(() => {
         $("#positionname")
-    })
+    });
 
 
 
@@ -119,7 +99,7 @@
         $(this).closest('tr').remove();
     });
     $(document).ready(function() {
-        $('.name').select2();
+        $('#name').select2();
     });
 
 

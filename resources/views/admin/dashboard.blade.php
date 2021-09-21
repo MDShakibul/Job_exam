@@ -36,7 +36,19 @@
             <td>{{$list->mother_name}}</td>
             <td>{{$list->nid_number}}</td>
             <td>{{$list->amount_land}}</td>
-            <td><img src="{{ URL::to($list->image)}}" style="height: 80px; width: 88px;"></td>
+            <?php
+            $Images = explode(',', $list->image);
+            //print_r($allImages);
+            ?>
+
+            <td>
+                @foreach($Images as $image)
+                <div>
+                    <img src="{{ asset($image) }}" style="height: 40px; width: 40px; margin-bottom: 2px;">
+                </div>
+
+                @endforeach
+            </td>
             <td><a href="{{ URL::to($list->pdf)}}">Open the pdf</a></td>
             <td>{{$list->mobile_number}}</td>
             <td>
