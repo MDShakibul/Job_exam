@@ -4,8 +4,8 @@
 
 <h1>Reveiw Your Information</h1>
 
-<table>
-  <thead>
+<table class="styled-table">
+  <thead style="font-size: 18px;">
     <tr>
       <th>Father Name</th>
       <th>Mother Name</th>
@@ -13,7 +13,7 @@
       <th>Amount Of Land</th>
       <th>Land Image</th>
       <th>Mobile Number</th>
-      <th>Files</th>
+      <th>Images</th>
       <th>Status</th>
       <th>Action</th>
     </tr>
@@ -63,7 +63,7 @@
       </td>
 
       <td><a href="{{url('/user_comment/'.$list->id)}}"><button>Comment</button></a>
-        <a href="{{url('/edit_user_details/'.$list->id)}}"><button>Edit</button></a>
+        <a href="{{url('/edit_user_details/'.$list->id)}}"><button class="btn btn-success">Edit</button></a>
 
       </td>
     </tr>

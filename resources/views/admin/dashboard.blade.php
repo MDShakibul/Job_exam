@@ -24,6 +24,7 @@
             <th>Mobile Number</th>
             <th>Status</th>
             <th>Action</th>
+            <th>Send</th>
             <th>Approval</th>
         </tr>
     </thead>
@@ -60,7 +61,8 @@
                 <span>Reject.....</span>
                 @endif
             </td>
-            <td><a href="{{ URL::to('/comment/'.$list-> id)}}"><button> Comment</button></a></td>
+            <td><a href="{{ URL::to('/comment/'.$list-> id)}}"><button class="btn btn-secondary active">Comment</button></a></td>
+            <td><a href="{{ URL::to('/send_to_employee/'.$list-> id)}}"><button class="btn btn-info">Send</button></a></td>
 
 
 

@@ -230,8 +230,7 @@ class UserDetailsController extends Controller
             }
         }
 
-
-        $data['file'] = implode(",", $multi);
+     $data['file'] = implode(",", $multi);
 
         if (isset($success_img) && isset($success_pdf)) {
             DB::table('user_details')->where('id', $id)->update($data);

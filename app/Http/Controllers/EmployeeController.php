@@ -38,9 +38,18 @@ class EmployeeController extends Controller
     {
         //dd("hi");
         $id = $_GET['id'];
-        $res = DB::table('position')
-            ->join('employee', 'position.id', '=', 'employee.position_type')
-            ->where('position.id', $id)
+        /*  $res = DB::table('position_details')
+            ->join('employee_details', 'position_details.id', '=', 'employee_details.position_id')
+            ->join('employee_login', 'employee_login.id', '=', 'employee_details.name')
+            ->select('position_details.*', 'employee_details.*', 'employee_login.employee_name')
+            ->where('position_details.id', $id)
+            ->get(); */
+
+        $res = DB::table('position_details')
+            ->join('employee_details', 'position_details.id', '=', 'employee_details.position_id')
+            ->join('employee_login', 'employee_login.id', '=', 'employee_details.employee_name')
+            ->select('position_details.*', 'employee_details.*', 'employee_login.*')
+            ->where('position_details.id', $id)
             ->get();
         return response()->json($res);
     }

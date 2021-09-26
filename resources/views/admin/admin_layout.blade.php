@@ -70,16 +70,6 @@
                             </nav>
                         </div>
 
-                        <a class="nav-link" href="{{URL::to('/position_page')}}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Add Position
-                        </a>
-
-                        <a class="nav-link" href="{{URL::to('/employee_page')}}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Add Employee
-                        </a>
-
 
                         <a class="nav-link" href="{{URL::to('/all_users')}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
@@ -88,7 +78,12 @@
 
                         <a class="nav-link" href="{{URL::to('/workflow_page')}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Work Flow
+                            WorkFlow
+                        </a>
+
+                        <a class="nav-link" href="{{URL::to('/view_workflow')}}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            View WorkFlow
                         </a>
                     </div>
                 </div>
@@ -122,7 +117,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.1.0/chosen.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.proto.js"></script>
+
     @yield('script')
 </body>
 

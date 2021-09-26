@@ -9,8 +9,11 @@ use App\Http\Controllers\ApplicationTypeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeeLoginController;
+use App\Http\Controllers\FileSendController;
 use App\Http\Controllers\FormAcceptController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\SendFileController;
 use App\Http\Controllers\ShowCommentController;
 use App\Http\Controllers\SigninController;
 use App\Http\Controllers\SignupController;
@@ -113,14 +116,17 @@ Route::get('/success/{id}', [FormAcceptController::class, 'success']);
 Route::get('/reject/{id}', [FormAcceptController::class, 'reject']);
 
 //payment getway
-/* Route::get('checkout','CheckoutController@checkout');
-Route::get('checkout','CheckoutController@checkout');
-Route::post('checkout','CheckoutController@afterpayment')->name('checkout.credit-card'); */
+
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
 Route::post('/checkout', [CheckoutController::class, 'afterpayment'])->name('checkout.credit-card');
 
 //workflow
 Route::get('/workflow_page', [WorkFlowController::class, 'workflow_page']);
+Route::get('/view_workflow', [WorkFlowController::class, 'view_workflow']);
+Route::post('/work_flow', [WorkFlowController::class, 'work_flow']);
+Route::get('/delete_work/{id}', [WorkFlowController::class, 'delete']);
+Route::get('/edit_work/{id}', [WorkFlowController::class, 'edit_work']);
+Route::post('/update_workflow/{id}', [WorkFlowController::class, 'update_workflow']);
 
 
 //position 
@@ -128,8 +134,22 @@ Route::get('/position_page', [PositionController::class, 'position_page']);
 Route::post('/position_add', [PositionController::class, 'position_add']);
 
 
-
 //employee
 Route::get('/employee_page', [EmployeeController::class, 'employee_page']);
 Route::post('/employee_add', [EmployeeController::class, 'employee_add']);
 Route::get('/getemployee/{id}', [EmployeeController::class, 'getemployee']);
+
+//send file
+/* Route::get('/send/{id}', [SendFileController::class, 'send']);
+Route::post('/send_file', [SendFileController::class, 'send_file']); */
+
+//employee login
+Route::get('/employee', [EmployeeLoginController::class, 'employee_login']);
+Route::post('/employee_page', [EmployeeLoginController::class, 'employee_page']);
+Route::get('/check_file/{id}', [EmployeeLoginController::class, 'check_file']);
+
+//send file
+
+Route::get('/send_to_employee/{id}', [FileSendController::class, 'send_next_employee']);
+Route::get('/send_another_employee/{id}', [FileSendController::class, 'send_next_employee']);
+Route::post('/send_next_file', [FileSendController::class, 'send_next_file']);

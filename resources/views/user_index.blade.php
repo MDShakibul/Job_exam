@@ -14,7 +14,7 @@
 @endif
 
 
-<form action="{{URL::to('/user_details')}}" method="post" enctype="multipart/form-data">
+<form action="{{URL::to('/user_details')}}" method="post" enctype="multipart/form-data" style="margin-top: 30px;">
     @csrf
 
     <h2>Please Fill Up The Form</h2>

@@ -50,11 +50,6 @@ class ApplicationTypeController extends Controller
         $data['application_type'] = $request->application_type;
         $data['application_price'] = $request->application_price;
         DB::table('application_type')->where('id', $id)->update($data);
-
-        //dd($data);
-        /* Session::put('message','Category Update Successfully'); */
-        /* return Redirect::to('admin.all_application'); */
-        /* return view('admin.all_application') */
         return Redirect::to('/application_all')->with(session()->flash('alert-success', 'Great. You Did It Successfully'));
     }
 

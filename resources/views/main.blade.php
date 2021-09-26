@@ -13,6 +13,7 @@
     <link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/style.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/style2.css')}}" rel="stylesheet">
+    <link href="{{ asset('frontend2/css/style_table.css') }}" rel="stylesheet" />
 
 
 

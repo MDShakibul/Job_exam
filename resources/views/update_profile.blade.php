@@ -9,7 +9,7 @@
 @endforeach
 
 
-<form action="{{URL::to('/update_password')}}" method="post">
+<form action="{{URL::to('/update_password')}}" method="post" style="margin-top: 35px;">
     @csrf
     <h2>Change Password</h2>
 

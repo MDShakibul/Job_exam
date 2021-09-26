@@ -12,14 +12,14 @@
 
 
 
-<form action="{{URL::to('/update_user_details/'.$app_info->id)}}" method="post" enctype="multipart/form-data">
+<form action="{{URL::to('/update_user_details/'.$app_info->id)}}" method="post" enctype="multipart/form-data" style="margin-top: 30px;">
     @csrf
 
     <h2>Please Fill Up The Form</h2>
 
     <div>
         <label>Application Type:</label>
-        <!-- <input type="text" class="input" name="application_type" placeholder="Application Type" required /><br /><br /> -->
+        <!-- <input type=" text" class="input" name="application_type" placeholder="Application Type" required /><br /><br /> -->
         <select name="application_type" class="applicationname" id="app_id">
             @foreach($app_list as $list)
             <option value="{{ $list->id }}"> {{ $list->application_type  }}</option>
