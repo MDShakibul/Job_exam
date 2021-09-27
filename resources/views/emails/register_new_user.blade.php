@@ -13,7 +13,7 @@
         Hello, {{ $name }} | <br>
         Thanks for creating account in our website. <br>
         Please click the below link to verify your email and active your accout.<br>
-        <a href="http://localhost:8000/verify?code={{ $verification_code }}">Click Here</a>
+        <a href="{{ url('http://localhost:8000/verify?code='.$verification_code) }}">Click Here</a>
     </div>
 </body>
 

@@ -42,13 +42,16 @@ class EmployeeLoginController extends Controller
 
     public function check_file($id)
     {
+
+        //dd($id);
         $files = DB::table('sendfileemployee')
             ->join('user_details', 'sendfileemployee.application_id', '=', 'user_details.id')
-            ->join('application_type', 'user_details.application_type', 'application_type.id')
+            ->join('application_type', 'user_details.application_type', '=', 'application_type.id')
             ->select('sendfileemployee.*', 'user_details.*', 'application_type.*')
             ->where('sendfileemployee.employee_name', $id)
             ->get();
 
+        //dd($files);
         return view('file_view', compact('files'));
     }
 }

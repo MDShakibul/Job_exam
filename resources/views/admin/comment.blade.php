@@ -2,11 +2,15 @@
 @section('title', 'Comment')
 @section('admin_content')
 
+
+
 @foreach (['danger', 'warning', 'success', 'info'] as $msg)
 @if(Session::has('alert-' . $msg))
 <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
 @endif
 @endforeach
+
+
 
 <form action="{{URL::to('/comments')}}" method="post" enctype="multipart/form-data" style="margin: 30px; width: 586px;">
     @csrf
@@ -34,4 +38,4 @@
 
 </div>
 
-@endsection 
+@endsection

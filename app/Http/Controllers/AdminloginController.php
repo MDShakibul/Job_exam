@@ -44,6 +44,7 @@ class AdminloginController extends Controller
                 ->get();
 
             $request->session()->put('admin_id', $result->id);
+           // dd($result->id);
 
             return view('admin.dashboard', compact('user_list'));
         } else {

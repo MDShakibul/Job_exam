@@ -51,7 +51,8 @@ class AdminCommentController extends Controller
 
         $data['comment_description'] = $request->comment_description;
         $data['comment_to'] = $request->comment_to;
-        $data['comment_by'] = $request->comment_by;
+      $data['comment_by'] = $request->comment_by;
+        //$data['comment_by'] = 1;
 
         //dd($data);
 

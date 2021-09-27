@@ -8,6 +8,7 @@ use App\Http\Controllers\AllUsertController;
 use App\Http\Controllers\ApplicationTypeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomRegisterController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeLoginController;
 use App\Http\Controllers\FileSendController;
@@ -47,7 +48,11 @@ Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Register controller
-Route::get('/verify', [RegisterController::class, 'verifyUser'])->name('verify.user');
+Route::get('/verify', [CustomRegisterController::class, 'verifyUser']);
+
+/* Route::get('/verify', function () {
+    return 'User';
+}); */
 
 //SignInController
 Route::post('/Application/Form', [SigninController::class, 'login']); //7user login
@@ -129,7 +134,7 @@ Route::get('/edit_work/{id}', [WorkFlowController::class, 'edit_work']);
 Route::post('/update_workflow/{id}', [WorkFlowController::class, 'update_workflow']);
 
 
-//position 
+//position
 Route::get('/position_page', [PositionController::class, 'position_page']);
 Route::post('/position_add', [PositionController::class, 'position_add']);
 

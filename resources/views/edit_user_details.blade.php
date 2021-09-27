@@ -21,6 +21,7 @@
         <label>Application Type:</label>
         <!-- <input type=" text" class="input" name="application_type" placeholder="Application Type" required /><br /><br /> -->
         <select name="application_type" class="applicationname" id="app_id">
+            <option >Select application type</option>
             @foreach($app_list as $list)
             <option value="{{ $list->id }}"> {{ $list->application_type  }}</option>
             @endforeach

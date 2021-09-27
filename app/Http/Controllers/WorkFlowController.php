@@ -60,8 +60,11 @@ class WorkFlowController extends Controller
             ->join('employee_details', 'position_details.id', '=', 'employee_details.position_id')
             ->join('employee_login', 'employee_login.id', '=', 'employee_details.employee_name')
             ->select('position_details.*', 'employee_details.*', 'employee_login.employee_name')
+            ->orderBy('position_details.id')
             ->get()
             ->groupBy('position_name');
+
+            //dd($workflow);
 
         $a = array();
         $b = array();
@@ -114,8 +117,9 @@ class WorkFlowController extends Controller
 
     public function update_workflow(Request $request, $id)
     {
+        //dd($id);
         DB::table('employee_details')->where('position_id', $id)->delete();
-        
+
         $total_position = 20;
 
         for ($i = 0; $i < $total_position; $i++) {
@@ -132,9 +136,11 @@ class WorkFlowController extends Controller
                 for ($j = 0; $j < count($pos_name_array); $j++) {
                     $position_name = $pos_name_array[$j];
                     $data['position_name'] = $position_name;
-                    //dd($data);
-                   // $a = DB::table('position_details')->insertGetId($data);
-                    //dd($a);
+
+                    DB::table('position_details')
+                        ->where('position_details.id', $id)
+                        ->update($data);
+                    //dd($data['position_name'] );
 
                     for ($k = 0; $k < count($emp_name_array); $k++) {
 
@@ -150,13 +156,10 @@ class WorkFlowController extends Controller
             }
         }
 
-        if ($result) {
+         if ($result) {
             return redirect()->back()->with(session()->flash('alert-success', 'Successfully done this'));
         } else {
             return redirect()->back()->with(session()->flash('alert-success', 'Something doing wrong'));
         }
     }
 }
-
-
-
