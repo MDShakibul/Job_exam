@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Setting</title>
-    <link href="{{asset('frontend/css/main.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/style.css')}}" rel="stylesheet">
-
-</head>
-
-<body>
+@extends('admin.admin_layout')
+@section('title', 'Comment')
+@section('admin_content')
 
     @foreach (['danger', 'warning', 'success', 'info'] as $msg)
     @if(Session::has('alert-' . $msg))
@@ -22,12 +9,12 @@
     @endforeach
 
 
-    <form action="{{URL::to('/admin_update_password/'.Session::get('admin_id') ) }}" method="post">
+    <form action="{{URL::to('/admin_update_password/'.Session::get('admin_id') ) }}" method="post" style="height: 513px; width: 586px;">
         @csrf
 
         <h2>Change Password</h2>
 
-        <label>Old Password</label> 
+        <label>Old Password</label>
         <input type="password" name="admin_old_password" placeholder="Old Password" required />
         <br />
 
@@ -39,8 +26,7 @@
         <input type="password" name="admin_confirm_password" placeholder="Confirm New Password" required />
         <br />
 
-        <button type="submit">CHANGE</button>
+        <button type="submit" class="btn btn-success">CHANGE</button>
     </form>
-</body>
 
-</html>
+    @endsection

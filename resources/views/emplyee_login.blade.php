@@ -19,11 +19,11 @@
 <body>
 
 
-    <!-- @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+     @foreach (['danger', 'warning', 'success', 'info'] as $msg)
 	@if(Session::has('alert-' . $msg))
 	<p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
 	@endif
-	@endforeach -->
+	@endforeach
 
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -45,8 +45,6 @@
                             @csrf
                             <input type="email" placeholder="Email" name="employee_email" />
                             <input type="password" placeholder="Passoward" name="employee_password" />
-
-
                             <button type="submit" class="btn btn-default">Login</button>
                         </form>
                     </div>
