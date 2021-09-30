@@ -1,6 +1,6 @@
-  
-body {
-	
+
+/* body {
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -11,22 +11,23 @@ body {
 *{
 	font-family: sans-serif;
 	box-sizing: border-box;
-}
+} */
 
-form {
+#form {
 	width: 700px;
 	border: 2px solid #ccc;
 	padding: 30px;
 	background: #fff;
 	border-radius: 15px;
+    margin-left: 425px;
 }
 
-h2 {
+/* h2 {
 	text-align: center;
 	margin-bottom: 40px;
-}
+} */
 
-input {
+#input {
 	display: block;
 	border: 2px solid #ccc;
 	width: 95%;
@@ -45,6 +46,12 @@ select {
 }
 
 label {
+	color: #888;
+	font-size: 18px;
+	padding: 10px;
+}
+
+.lbl {
 	color: #888;
 	font-size: 18px;
 	padding: 10px;
@@ -70,6 +77,23 @@ button:hover{
 	padding: 10px;
 	margin: 10px auto;
 	border-radius: 5px;
+}
+
+#footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+    height: 0px;
+  }
+
+#footer_text{
+    display: flex;
+    justify-content: center;
+    margin-left: 304px;
+    margin-top: -10px;
 }
 
 

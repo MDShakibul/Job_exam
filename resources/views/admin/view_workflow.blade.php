@@ -1,5 +1,32 @@
 @extends('admin.admin_layout')
 @section('title', 'All Application')
+
+<style>
+
+
+    #center{
+        margin: auto;
+        width: 40%;
+        padding: 10px;
+    }
+
+    table tr:first-child th:first-child {
+        border-top-left-radius: 6px;
+    }
+
+    table tr:first-child th:last-child {
+        border-top-right-radius: 6px;
+    }
+
+    table tr:last-child td:first-child {
+        border-bottom-left-radius: 6px;
+    }
+
+    table tr:last-child td:last-child {
+        border-bottom-right-radius: 6px;
+    }
+
+</style>
 @section('admin_content')
 
 
@@ -9,42 +36,56 @@
 @endif
 @endforeach
 
-<h2>View Workflow</h2>
-<table class="styled-table">
-    <thead>
-        <tr>
-            <th>Position Name</th>
-            <th>Employee</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    @for($i=0; $i<count($b); $i++) 
-    <tbody>
+<div class="table-responsive">
 
-        <tr>
+    <div id="center">
 
-            <td>{{$b[$i]}}</td>
+        <h2 style="display: flex;
+        justify-content: center; margin-right: 40px;">View Workflow</h2>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Position Name</th>
+                <th>Employee</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        @for($i=0; $i<count($b); $i++)
+        <tbody>
 
-            <td>
-                {{$a[$i]}}
-            </td>
+            <tr>
 
-            <td>
-                <a href="{{URL::to('/delete_work/'.$c[$i])}}">
-                    <button type="button" class="btn btn-danger" style="margin: 5px;">Delete</button>
-                </a>
+                <td>{{$b[$i]}}</td>
 
+                <td>
+                    {{$a[$i]}}
+                </td>
 
-                <a href="{{URL::to('/edit_work/'.$c[$i])}}">
-                    <button type="button" class="btn btn-success" style="margin: 5px;">Edit</button>
-                </a>
-
+                <td>
+                    <a href="{{URL::to('/delete_work/'.$c[$i])}}">
+                        <button type="button" class="btn btn-danger" style="margin: 5px;">Delete</button>
+                    </a>
 
 
-            </td>
+                    <a href="{{URL::to('/edit_work/'.$c[$i])}}">
+                        <button type="button" class="btn btn-success" style="margin: 5px;">Edit</button>
+                    </a>
 
-        </tr>
-        </tbody>
-        @endfor
-</table>
+
+
+                </td>
+
+            </tr>
+            </tbody>
+
+
+    </div>
+
+
+            @endfor
+    </table>
+
+</div>
+
+
 @endsection

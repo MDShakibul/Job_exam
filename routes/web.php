@@ -88,12 +88,12 @@ Route::get('/update_setting', [AdminUpdateController::class, 'update_setting']);
 Route::post('/admin_update_password/{admin_id}', [AdminUpdateController::class, 'admin_update_password']);
 
 //application
-Route::get('/application_type', [ApplicationTypeController::class, 'application_type']);
+Route::get('application/application_type', [ApplicationTypeController::class, 'application_type']);
 Route::post('/application_add', [ApplicationTypeController::class, 'application_add']);
-Route::get('/application_all', [ApplicationTypeController::class, 'application_all']);
-Route::get('/application_edit/{id}', [ApplicationTypeController::class, 'application_edit']);
-Route::post('/update_app/{id}', [ApplicationTypeController::class, 'update_app']);
-Route::get('/delete_app/{id}', [ApplicationTypeController::class, 'delete_app']);
+Route::get('application/application_all', [ApplicationTypeController::class, 'application_all']);
+Route::get('application/application_edit/{id}', [ApplicationTypeController::class, 'application_edit']);
+Route::post('application/update_app/{id}', [ApplicationTypeController::class, 'update_app']);
+Route::get('application/delete_app/{id}', [ApplicationTypeController::class, 'delete_app']);
 
 //admin comment
 Route::get('/comment/{id}', [AdminCommentController::class, 'comment_page']);
@@ -114,6 +114,7 @@ Route::post('/view_comment', [UserCommentController::class, 'view_comment']);
 
 //show comment
 Route::get('/show_comment/{id}', [ShowCommentController::class, 'show_comment']);
+Route::get('/admin_show_comment/{id}', [ShowCommentController::class, 'admin_show_comment']);
 
 //form accept controller
 Route::get('/pending/{id}', [FormAcceptController::class, 'pending']);
@@ -158,3 +159,10 @@ Route::get('/check_file/{id}', [EmployeeLoginController::class, 'check_file']);
 Route::get('/send_to_employee/{id}', [FileSendController::class, 'send_next_employee']);
 Route::get('/send_another_employee/{id}', [FileSendController::class, 'send_next_employee']);
 Route::post('/send_next_file', [FileSendController::class, 'send_next_file']);
+
+
+
+//test
+Route::get('/test', function () {
+    return view('admin.admin_layout');
+});

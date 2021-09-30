@@ -2,9 +2,11 @@
 @section('title','Information')
 @section('content')
 
-<h1>Reveiw Your Information</h1>
-
-<table class="styled-table">
+<h1 style="display: flex;
+justify-content: center; margin-right: 40px;">Reveiw Your Information</h1>
+<div style=" padding: 0px 20px 0px 20px;">
+<div class="table-responsive">
+<table class="table table-bordered table-striped table-hover styled-table">
   <thead style="font-size: 18px;">
     <tr>
       <th>Father Name</th>
@@ -62,14 +64,17 @@
         @endif
       </td>
 
-      <td><a href="{{url('/user_comment/'.$list->id)}}"><button>Comment</button></a>
-        <a href="{{url('/edit_user_details/'.$list->id)}}"><button class="btn btn-success">Edit</button></a>
+      <td>
+          <a href="{{url('/edit_user_details/'.$list->id)}}"><button class="btn btn-success">Edit</button></a>
+          <a href="{{url('/user_comment/'.$list->id)}}"><button class="btn btn-success">Comment</button></a>
 
       </td>
     </tr>
   </tbody>
   @endforeach
 </table>
+</div>
+</div>
 
 
 @endsection

@@ -3,12 +3,23 @@
 <style>
     #workflow_form {
         width: 600px;
-        min-height: 165px;
+        min-height: 135px;
+    }
+
+    #center{
+        margin: auto;
+        width: 50%;
+        box-shadow: 5px 5px 15px lightgrey;
+        padding: 10px;
+        border-radius: 10px;
     }
 
     #add_btn {
         margin-left: 5px;
     }
+
+
+
 </style>
 @section('admin_content')
 
@@ -18,7 +29,10 @@
 @endif
 @endforeach
 
-<h2>Creat Workflow</h2><br>
+
+<div id="center">
+    <h2 style="display: flex;
+    justify-content: center;">Creat Workflow</h2><br>
 
 <form action="{{URL::to('/work_flow')}}" method="post" enctype="multipart/form-data" id="workflow_form">
     @csrf
@@ -32,25 +46,38 @@
             </th>
 
         </tr>
-        <tr>
-            <td>
-                <input type="text" class="position_name" name="position_name0[]" id="position_name" style="width: 110px; margin: 10px;" />
-            </td>
 
-            <td><select name="employee_name0[]" class="employee_name" id="employee_name" multiple="multiple" style="width: 350px; height:110px;">
+        <div class="center">
 
-                    @foreach($emp_name as $list)
+            <tr>
+                <td>
+                    <input type="text" class="position_name" name="position_name0[]" id="position_name" style="width: 130px; margin-right: 10px; border-radius: 20px;" />
+                </td>
 
-                    <option value="{{ $list->id }}"> {{ $list->employee_name  }}</option>
-                    @endforeach
+                <td><select name="employee_name0[]" class="employee_name" id="employee_name" multiple="multiple" style="width: 350px; height:110px;">
 
-                </select>
+                        @foreach($emp_name as $list)
 
-            <td><button type="button" class="btn btn-success" id="add_btn"><i class="glyphicon glyphicon-plus "></i>ADD</button><br></td>
-        </tr>
+                        <option value="{{ $list->id }}"> {{ $list->employee_name  }}</option>
+                        @endforeach
+
+                    </select></td>
+
+                <td><button type="button" class="btn btn-success" id="add_btn"><i class="glyphicon glyphicon-plus "></i>ADD</button><br></td>
+            </tr>
+
+        </div>
+
     </table>
-    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-success" style="margin-left: 500px; margin-top: 10px;">Save</button>
 </form>
+
+
+</div>
+
+
+
+
 
 @endsection
 @section('script')
@@ -63,9 +90,9 @@
             id++;
             var html = '<tr>' +
                 '<td>' +
-                '<input type="text" class="position_name' + id + '" name="position_name' + id + '[]" id="position_name' + id + '" />' +
+                '<input type="text" class="position_name' + id + '" name="position_name' + id + '[]" id="position_name' + id + '" style="width: 130px; margin-right: 10px; border-radius: 20px;"/>' +
                 '</td>' +
-                '<td><select name="employee_name' + id + '[]" class="employee_name' + id + '" id="employee_name' + id + ' "multiple="multiple" " style="width: 350px; ">' +
+                '<td><select name="employee_name' + id + '[]" class="employee_name' + id + '" id="employee_name' + id + ' "multiple="multiple" style="width: 350px; height:110px;">' +
                 '@foreach($emp_name as $list)' +
                 '<option value="{{ $list->id }}"> {{ $list->employee_name  }}</option>' +
                 ' @endforeach' +

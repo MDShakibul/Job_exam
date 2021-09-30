@@ -16,17 +16,18 @@ class ApplicationTypeController extends Controller
 
     public function application_add(Request $request)
     {
+        //dd('hi');
         $data = array();
         $data['application_type'] = $request->application_type;
         $data['application_price'] = $request->application_price;
 
         if ($data) {
             DB::table('application_type')->insert($data);
-            return Redirect::to('/application_type')->with(session()->flash('alert-success', 'You Creat a New Application Type'));
+            return Redirect::to('application/application_type')->with(session()->flash('alert-success', 'You Creat a New Application Type'));
         }
 
         /* return view('admin.dashboard'); */
-        return Redirect::to('/application_type')->with(session()->flash('alert-alart', 'OH NO. You make Something Wrong'));
+        return Redirect::to('application/application_type')->with(session()->flash('alert-alart', 'OH NO. You make Something Wrong'));
     }
 
     public function application_all()
@@ -50,7 +51,7 @@ class ApplicationTypeController extends Controller
         $data['application_type'] = $request->application_type;
         $data['application_price'] = $request->application_price;
         DB::table('application_type')->where('id', $id)->update($data);
-        return Redirect::to('/application_all')->with(session()->flash('alert-success', 'Great. You Did It Successfully'));
+        return Redirect::to('application/application_all')->with(session()->flash('alert-success', 'Great. You Did It Successfully'));
     }
 
     public function delete_app($id)

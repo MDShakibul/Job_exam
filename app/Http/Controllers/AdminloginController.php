@@ -37,14 +37,19 @@ class AdminloginController extends Controller
             ->where('admin_password', $admin_password)
             ->first();
 
+        //dd($result);
+
         if ($result) {
             $user_list = DB::table('user_details')
                 ->join('application_type', 'user_details.application_type', 'application_type.id')
                 ->select('user_details.*', 'application_type.application_type as app_type')
                 ->get();
 
+            //dd($user_list);
+
             $request->session()->put('admin_id', $result->id);
-           // dd($result->id);
+            $request->session()->put('admin_name', $result->admin_name);
+            // dd($result->id);
 
             return view('admin.dashboard', compact('user_list'));
         } else {

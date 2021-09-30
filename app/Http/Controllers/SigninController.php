@@ -33,6 +33,7 @@ class SigninController extends Controller
             if ($user->is_verified == 1) {
                 $request->session()->regenerate();
                 $app_list = DB::table('application_type')->get();
+                //dd($user->id);
                 $request->session()->put('user_id', $user->id);
                 return view('user_index', compact(['app_list']));
             } else {

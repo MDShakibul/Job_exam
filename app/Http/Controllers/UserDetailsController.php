@@ -135,13 +135,10 @@ class UserDetailsController extends Controller
 
 
 
-
-
-
-
-
     public function view_profile($user_id)
     {
+
+        //dd('hi');
         $user_list = DB::table('user_details')
             ->where('user_id', $user_id)->get();
         return view('short_view_info', compact('user_list'));
