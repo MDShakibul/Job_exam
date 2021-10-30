@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Models\Comment;
 
 class ShowCommentController extends Controller
 {
@@ -18,13 +19,11 @@ class ShowCommentController extends Controller
 
         return view('all_comments', compact('view_comment')); */
 
-        $view_user_comment = DB::table('comments')
-            ->select('comments.*')
+        $view_user_comment = Comment::select('comments.*')
             ->where('comments.comment_by', '=', $id)
             ->get();
 
-        $view_admin_comment = DB::table('comments')
-            ->select('comments.*')
+        $view_admin_comment = Comment::select('comments.*')
             ->where('comments.comment_to', '=', $id)
             ->where('comments.comment_by', '!=', $id)
             ->get();
@@ -44,13 +43,11 @@ class ShowCommentController extends Controller
         return view('all_comments', compact('view_comment')); */
        // dd($id);
 
-        $view_user_comment = DB::table('comments')
-            ->select('comments.*')
+        $view_user_comment = Comment::select('comments.*')
             ->where('comments.comment_by', '=', $id)
             ->get();
 
-        $view_admin_comment = DB::table('comments')
-            ->select('comments.*')
+        $view_admin_comment = Comment::select('comments.*')
             ->where('comments.comment_to', '=', $id)
             ->where('comments.comment_by', '!=', $id)
             ->get();

@@ -74,7 +74,6 @@ class UserCommentController extends Controller
             ->first();
 
         $app_list = DB::table('application_type')->get();
-        //return view('user_index', compact(['app_list']));
         return view('edit_user_details', compact(['app_info', 'app_list']));
     }
 }

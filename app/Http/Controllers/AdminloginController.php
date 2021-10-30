@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Session\Session;
+use App\Models\Admin;
+use App\Models\User_detail;
 
 class AdminloginController extends Controller
 {
@@ -19,8 +21,7 @@ class AdminloginController extends Controller
 
     public function dashboard_home()
     {
-        $user_list = DB::table('user_details')
-            ->join('application_type', 'user_details.application_type', 'application_type.id')
+        $user_list = User_detail::join('application_type', 'user_details.application_type', 'application_type.id')
             ->select('user_details.*', 'application_type.application_type as app_type')
             ->get();
         return view('admin.dashboard', compact('user_list'));
@@ -32,16 +33,14 @@ class AdminloginController extends Controller
         $admin_email = $request->admin_email;
         $admin_password = $request->admin_password;
 
-        $result = DB::table('admin_login')
-            ->where('admin_email', $admin_email)
+        $result = Admin::where('admin_email', $admin_email)
             ->where('admin_password', $admin_password)
             ->first();
 
         //dd($result);
 
         if ($result) {
-            $user_list = DB::table('user_details')
-                ->join('application_type', 'user_details.application_type', 'application_type.id')
+            $user_list = User_detail::join('application_type', 'user_details.application_type', 'application_type.id')
                 ->select('user_details.*', 'application_type.application_type as app_type')
                 ->get();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application_type;
 use App\Models\User;
 use Facade\FlareClient\View;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class SigninController extends Controller
         if (Auth::attempt($credentials)) {
             if ($user->is_verified == 1) {
                 $request->session()->regenerate();
-                $app_list = DB::table('application_type')->get();
+                $app_list = Application_type :: all();
                 //dd($user->id);
                 $request->session()->put('user_id', $user->id);
                 return view('user_index', compact(['app_list']));

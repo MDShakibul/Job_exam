@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee_login;
+use App\Models\Send_file_employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class EmployeeLoginController extends Controller
 {
-    public function employee_login()
+   /*  public function employee_login()
     {
         $posi_list = DB::table('position')->get();
         return view('emplyee_login', compact('posi_list'));
-    }
+    } */
 
     public function employee_page(Request $request)
     {
@@ -20,8 +22,7 @@ class EmployeeLoginController extends Controller
 
         // dd($position_type);
 
-        $result = DB::table('employee_login')
-            ->where('employee_email', $employee_email)
+        $result = Employee_login :: where('employee_email', $employee_email)
             ->where('employee_password', $employee_password)
             ->first();
 
@@ -44,8 +45,7 @@ class EmployeeLoginController extends Controller
     {
 
         //dd($id);
-        $files = DB::table('sendfileemployee')
-            ->join('user_details', 'sendfileemployee.application_id', '=', 'user_details.id')
+        $files = Send_file_employee :: join('user_details', 'sendfileemployee.application_id', '=', 'user_details.id')
             ->join('application_type', 'user_details.application_type', '=', 'application_type.id')
             ->select('sendfileemployee.*', 'user_details.*', 'application_type.*')
             ->where('sendfileemployee.employee_name', $id)

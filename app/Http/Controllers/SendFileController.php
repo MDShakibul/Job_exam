@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class SendFileController extends Controller
 {
-    public function send($id)
+   /*  public function send($id)
     {
         $posi_list = DB::table('position')->get();
         $app_list = DB::table('application_type')->get();
@@ -38,7 +38,7 @@ class SendFileController extends Controller
 
         $data['pdf'] = $request->old_file;
 
-        /* $document = $request->file('pdf'); */
+        /* $document = $request->file('pdf');
 
 
         if ($data) {
@@ -46,7 +46,7 @@ class SendFileController extends Controller
             return redirect()->back()->with('message', 'You Update The Form Successfully');
         } else {
             return redirect()->back()->with('message', 'You Did Something Wrong. Please Check Again');
-        }
+        } */
 
 
 
@@ -57,7 +57,7 @@ class SendFileController extends Controller
             $upload_path = 'pdf/';
             $document_url = $upload_path . $document_full_name;
             $success_pdf = $document->move($upload_path, $document_full_name);
-            
+
             unlink($old_file);
             if (isset($success_pdf)) {
                 DB::table('send_file')->insert($data);
@@ -71,7 +71,7 @@ class SendFileController extends Controller
         }
 
         return redirect()->back()->with('message', 'You Did Something Wrong. Please Check Again'); */
-    }
+    
 
     /* public function application_edit($id)
     {

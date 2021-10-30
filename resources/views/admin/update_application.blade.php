@@ -98,7 +98,7 @@ height: 50px;
         <div class="card-body">
             <div class="chart-area">
                 <canvas id="myAreaChart"></canvas>
-                <form action="{{URL::to('/update_app/'.$app_info->id)}}" method="post">
+                <form action="{{URL::to('application/update_app/'.$app_info->id)}}" method="post">
                     @csrf
                     <table >
                         <tr>

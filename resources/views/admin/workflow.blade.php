@@ -51,10 +51,10 @@
 
             <tr>
                 <td>
-                    <input type="text" class="position_name" name="position_name0[]" id="position_name" style="width: 130px; margin-right: 10px; border-radius: 20px;" />
+                    <input type="text" class="position_name" name="position_name0[]" id="position_name" style="width: 130px; margin-right: 10px; border-radius: 20px;" required/>
                 </td>
 
-                <td><select name="employee_name0[]" class="employee_name" id="employee_name" multiple="multiple" style="width: 350px; height:110px;">
+                <td><select name="employee_name0[]" class="employee_name" id="employee_name" multiple="multiple" style="width: 350px; height:110px;" required>
 
                         @foreach($emp_name as $list)
 
@@ -90,9 +90,9 @@
             id++;
             var html = '<tr>' +
                 '<td>' +
-                '<input type="text" class="position_name' + id + '" name="position_name' + id + '[]" id="position_name' + id + '" style="width: 130px; margin-right: 10px; border-radius: 20px;"/>' +
+                '<input type="text" class="position_name' + id + '" name="position_name' + id + '[]" id="position_name' + id + '" style="width: 130px; margin-right: 10px; border-radius: 20px;" required/>' +
                 '</td>' +
-                '<td><select name="employee_name' + id + '[]" class="employee_name' + id + '" id="employee_name' + id + ' "multiple="multiple" style="width: 350px; height:110px;">' +
+                '<td><select name="employee_name' + id + '[]" class="employee_name' + id + '" id="employee_name' + id + ' "multiple="multiple" style="width: 350px; height:110px;" required>' +
                 '@foreach($emp_name as $list)' +
                 '<option value="{{ $list->id }}"> {{ $list->employee_name  }}</option>' +
                 ' @endforeach' +

@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Stripe\Stripe;
 use Symfony\Component\HttpFoundation\Session\Session;
+use App\Models\User_detail;
+use App\Models\Application_type;
 
 class UserDetailsController extends Controller
 {
     public function form()
     {
-        $app_list = DB::table('application_type')->get();
+        $app_list = Application_type :: all();
 
         return view('user_index', compact('app_list'));
     }
@@ -35,17 +37,19 @@ class UserDetailsController extends Controller
             'pdf' => ['required', 'mimes:pdf']
         ])->validate();
 
-        $data = array();
-        $data['user_id'] = $request->user_id;
-        $data['application_type'] = $request->application_type;
-        $data['application_price'] = $request->application_price;
-        $data['application_number'] = $request->application_number  = hexdec(uniqid());
-        $data['father_name'] = $request->father_name;
-        $data['mother_name'] = $request->mother_name;
-        $data['amount_land'] = $request->amount_land;
-        $data['nid_number'] = $request->nid_number;
-        $data['mobile_number'] = $request->mobile_number;
-        $data['description'] = $request->description;
+        $user = New User_detail;
+
+        //$data = array();
+        $user -> user_id = $request->user_id;
+        $user -> application_type = $request->application_type;
+        $user -> application_price = $request->application_price;
+        $user -> application_number = $request->application_number  = hexdec(uniqid());
+        $user -> father_name = $request->father_name;
+        $user -> mother_name = $request->mother_name;
+        $user -> amount_land = $request->amount_land;
+        $user -> nid_number = $request->nid_number;
+        $user -> mobile_number = $request->mobile_number;
+        $user -> description = $request->description;
 
         $count = intval(count((array)$request->file('image')));
 
@@ -62,8 +66,10 @@ class UserDetailsController extends Controller
             $success_img = $image[$i]->move($upload_path, $image_full_name);
             array_push($images, $image_url);
         }
+/*
+        $data['image'] = implode(",", $images); */
+        $user -> image = implode(",", $images);
 
-        $data['image'] = implode(",", $images);
 
         $document = $request->file('pdf');
         if ($document) {
@@ -75,7 +81,7 @@ class UserDetailsController extends Controller
             $success_pdf = $document->move($upload_path, $document_full_name);
         }
 
-        $data['pdf'] = $document_url;
+        $user -> pdf = $document_url;
 
 
         $multi = array();
@@ -91,12 +97,13 @@ class UserDetailsController extends Controller
             }
         }
 
-        $data['file'] = implode(",", $multi);
+        $user -> file = implode(",", $multi);
 
 
         if (isset($success_img) && isset($success_pdf)) {
-            DB::table('user_details')->insert($data);
-            $price = $data['application_price'];
+           /*  DB::table('user_details')->insert($data); */
+           $user -> save();
+            $price = $user -> application_price;
 
             /* $res = DB::table('position')
             ->join('employee', 'position.id', '=', 'employee.position_type')
@@ -139,17 +146,22 @@ class UserDetailsController extends Controller
     {
 
         //dd('hi');
-        $user_list = DB::table('user_details')
+       /*  $user_list = DB::table('user_details')
             ->where('user_id', $user_id)->get();
+        return view('short_view_info', compact('user_list')); */
+
+        $user_list = User_detail::where('user_id', $user_id)->get();
         return view('short_view_info', compact('user_list'));
+
+
+
     }
 
     public function findPrice(Request $request)
     {
 
         //dd($request->all());
-        $p = DB::table('application_type')
-            ->select('application_price')
+        $p = Application_type::select('application_price')
             ->where('id', $request->id)
             ->first();
 
@@ -171,17 +183,20 @@ class UserDetailsController extends Controller
             'pdf' => ['required', 'mimes:pdf']
         ]);
 
-        $data = array();
-        $data['user_id'] = $request->user_id;
-        $data['application_type'] = $request->application_type;
-        $data['application_price'] = $request->application_price;
-        $data['application_number'] = $request->application_number  = hexdec(uniqid());
-        $data['father_name'] = $request->father_name;
-        $data['mother_name'] = $request->mother_name;
-        $data['amount_land'] = $request->amount_land;
-        $data['nid_number'] = $request->nid_number;
-        $data['mobile_number'] = $request->mobile_number;
-        $data['description'] = $request->description;
+        //$data = array();
+
+        $user = User_detail::find($id);
+
+        $user -> user_id = $request->user_id;
+        $user -> application_type = $request->application_type;
+        $user -> application_price = $request->application_price;
+        $user -> application_number = $request->application_number  = hexdec(uniqid());
+        $user -> father_name = $request->father_name;
+        $user -> mother_name = $request->mother_name;
+        $user -> amount_land = $request->amount_land;
+        $user -> nid_number = $request->nid_number;
+        $user -> mobile_number = $request->mobile_number;
+        $user -> description = $request->description;
 
 
         $image = $request->file('image');
@@ -193,7 +208,7 @@ class UserDetailsController extends Controller
             $image_url = $upload_path . $image_full_name;
             $success_img = $image->move($upload_path, $image_full_name);
         }
-        $data['image'] = $image_url;
+        $user -> image = $image_url;
 
 
 
@@ -209,7 +224,7 @@ class UserDetailsController extends Controller
 
         // dd($document_url);
 
-        $data['pdf'] = $document_url;
+        $user -> pdf = $document_url;
 
 
         $multi = array();;
@@ -227,10 +242,12 @@ class UserDetailsController extends Controller
             }
         }
 
-     $data['file'] = implode(",", $multi);
+        $user -> file = implode(",", $multi);
 
         if (isset($success_img) && isset($success_pdf)) {
-            DB::table('user_details')->where('id', $id)->update($data);
+            //DB::table('user_details')->where('id', $id)->update($data);
+            $user -> save();
+
             return redirect()->back()->with('message', 'You Update The Form Successfully');
         }
 

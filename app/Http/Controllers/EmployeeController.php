@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Position_detail;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class EmployeeController extends Controller
 {
-    public function employee_page()
+    /* public function employee_page()
     {
 
         // dd("hi");
@@ -30,9 +31,9 @@ class EmployeeController extends Controller
             return Redirect::to('/employee_page')->with(session()->flash('alert-success', 'You Creat a New Position Type'));
         }
 
-        /* return view('admin.dashboard'); */
+        /* return view('admin.dashboard'); 
         return Redirect::to('/employee_page')->with(session()->flash('alert-alart', 'OH NO. You make Something Wrong'));
-    }
+    } */
 
     public function getemployee($id)
     {
@@ -45,8 +46,7 @@ class EmployeeController extends Controller
             ->where('position_details.id', $id)
             ->get(); */
 
-        $res = DB::table('position_details')
-            ->join('employee_details', 'position_details.id', '=', 'employee_details.position_id')
+        $res = Position_detail :: join('employee_details', 'position_details.id', '=', 'employee_details.position_id')
             ->join('employee_login', 'employee_login.id', '=', 'employee_details.employee_name')
             ->select('position_details.*', 'employee_details.*', 'employee_login.*')
             ->where('position_details.id', $id)

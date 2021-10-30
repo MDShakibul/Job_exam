@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee_detail;
+use App\Models\Employee_login;
+use App\Models\Position_detail;
 use App\Models\Workflow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +13,7 @@ class WorkFlowController extends Controller
 {
     public function workflow_page()
     {
-        $emp_name = DB::table('employee_login')->get();
+        $emp_name = Employee_login::all();
         return view('admin.workflow', compact('emp_name'));
     }
 
@@ -26,21 +29,22 @@ class WorkFlowController extends Controller
 
             if (isset($request->$pos_name) && isset($request->$emp_name)) {
 
-                $data = array();
+                $data = new Position_detail;
                 $pos_name_array = $request->$pos_name;
                 for ($j = 0; $j < count($pos_name_array); $j++) {
                     $position_name = $pos_name_array[$j];
-                    $data['position_name'] = $position_name;
+                    $data->position_name = $position_name;
                     //dd($data);
-                    $a = DB::table('position_details')->insertGetId($data);
+                    $data->save();
+                    $data->id;
 
                     for ($k = 0; $k < count($emp_name_array); $k++) {
                         $employee_name = $emp_name_array[$k];
-                        $data1 = array();
-                        $data1['position_id'] = $a;
-                        $data1['employee_name'] = $employee_name;
+                        $data1 = new Employee_detail;
+                        $data1->position_id = $data->id;
+                        $data1->employee_name = $employee_name;
 
-                        $result = DB::table('employee_details')->insert($data1);
+                        $result = $data1->save();
                     }
                 }
             }
@@ -56,15 +60,14 @@ class WorkFlowController extends Controller
     {
         //$workflow = DB::table('workflow')->get();
         //$newWorkFlow = array();
-        $workflow = DB::table('position_details')
-            ->join('employee_details', 'position_details.id', '=', 'employee_details.position_id')
+        $workflow = Position_detail::join('employee_details', 'position_details.id', '=', 'employee_details.position_id')
             ->join('employee_login', 'employee_login.id', '=', 'employee_details.employee_name')
             ->select('position_details.*', 'employee_details.*', 'employee_login.employee_name')
             ->orderBy('position_details.id')
             ->get()
             ->groupBy('position_name');
 
-            //dd($workflow);
+        //dd($workflow);
 
         $a = array();
         $b = array();
@@ -94,15 +97,15 @@ class WorkFlowController extends Controller
 
     public function delete($id)
     {
-        DB::table('employee_details')->where('position_id', $id)->delete();
+        Employee_detail::where('position_id', $id)->delete();
+        //Employee_detail::destroy($id);
         return redirect()->back()->with(session()->flash('alert-success', 'Your Successfully Delete This'));
     }
 
     public function edit_work($id)
     {
 
-        $workflow_infos = DB::table('position_details')
-            ->join('employee_details', 'position_details.id', '=', 'employee_details.position_id')
+        $workflow_infos = Position_detail::join('employee_details', 'position_details.id', '=', 'employee_details.position_id')
             ->join('employee_login', 'employee_login.id', '=', 'employee_details.employee_name')
             ->select('position_details.*', 'employee_details.*', 'employee_login.employee_name', 'employee_login.id as employee_id')
             ->where('employee_details.position_id', $id)
@@ -110,7 +113,7 @@ class WorkFlowController extends Controller
 
         //dd($workflow_infos);
 
-        $employee_infos = DB::table('employee_login')->get();
+        $employee_infos = Employee_login::all();
 
         return view('admin.edit_workflow', compact(['workflow_infos', 'employee_infos']));
     }
@@ -118,7 +121,7 @@ class WorkFlowController extends Controller
     public function update_workflow(Request $request, $id)
     {
         //dd($id);
-        DB::table('employee_details')->where('position_id', $id)->delete();
+        Employee_detail::where('position_id', $id)->delete();
 
         $total_position = 20;
 
@@ -131,32 +134,36 @@ class WorkFlowController extends Controller
 
             if (isset($request->$pos_name) && isset($request->$emp_name)) {
 
-                $data = array();
+                // $data = New Position_detail;
                 $pos_name_array = $request->$pos_name;
                 for ($j = 0; $j < count($pos_name_array); $j++) {
                     $position_name = $pos_name_array[$j];
-                    $data['position_name'] = $position_name;
+                    // $data -> position_name = $position_name;
 
-                    DB::table('position_details')
+                    /* DB::table('position_details')
                         ->where('position_details.id', $id)
-                        ->update($data);
-                    //dd($data['position_name'] );
+                        ->update($data); */
+
+                    $data = Position_detail::find($id);
+
+                    $data->position_name = $position_name;
+                    $data->save();
 
                     for ($k = 0; $k < count($emp_name_array); $k++) {
 
 
                         $employee_name = $emp_name_array[$k];
-                        $data1 = array();
-                        $data1['position_id'] = $id;
-                        $data1['employee_name'] = $employee_name;
+                        $data1 = new Employee_detail;
+                        $data1->position_id = $id;
+                        $data1->employee_name = $employee_name;
 
-                        $result = DB::table('employee_details')->insert($data1);
+                        $result = $data1->save();
                     }
                 }
             }
         }
 
-         if ($result) {
+        if ($result) {
             return redirect()->back()->with(session()->flash('alert-success', 'Successfully done this'));
         } else {
             return redirect()->back()->with(session()->flash('alert-success', 'Something doing wrong'));

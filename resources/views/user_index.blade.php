@@ -35,8 +35,6 @@ height: 1650px; " id="form">
     <label>Application Price:</label>
     <input type="text" id="input" class="app_price" name="application_price" readonly />
 
-    <!-- <label>Application Number:</label> -->
-    <!-- <label>Aoolication Random Number</label> -->
     <input type="hidden" class="input" name="application_number" /><br />    <!-- <label>User Id:</label> -->
     <input type="hidden" class="input" name="user_id" value={{Session::get('user_id')}} />
     <label>Father Name:</label>
